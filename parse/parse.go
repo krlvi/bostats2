@@ -66,6 +66,9 @@ func parseListing(s *goquery.Selection) (listings.Entry, error) {
 
 func PagesAvailable(doc *goquery.Document) (int, error) {
 	s := doc.Find(".padded-container .result-tools .pagination").First()
+	if len(s.Nodes) < 1 {
+		return 1, nil
+	}
 	raw := s.Nodes[0].FirstChild.NextSibling.NextSibling.NextSibling.NextSibling.NextSibling.NextSibling.NextSibling.NextSibling.NextSibling.FirstChild.Data
 	i, err := strconv.Atoi(strings.TrimSpace(raw))
 	if err != nil {
