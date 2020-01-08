@@ -31,10 +31,12 @@ func AllPages(url string) ([]listings.Entry, error) {
 	var wg sync.WaitGroup
 	var out []listings.Entry
 	c := make(chan []listings.Entry)
+	done := make(chan bool)
 	go func() {
 		for n := range c {
 			out = append(out, n...)
 		}
+		done <- true
 	}()
 	for i := 1; i <= pages; i++ {
 		wg.Add(1)
@@ -42,6 +44,7 @@ func AllPages(url string) ([]listings.Entry, error) {
 	}
 	wg.Wait()
 	close(c)
+	<- done
 	return out, nil
 }
 
