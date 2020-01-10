@@ -32,3 +32,11 @@ func Map(in []Entry, f func(Entry) map[time.Time]int) []map[time.Time]int {
 	}
 	return out
 }
+
+func PriceSqm(in []Entry) []float64 {
+	var out []float64
+	for _, l := range in {
+		out = append(out, float64(l.PriceSqm))
+	}
+	return out
+}

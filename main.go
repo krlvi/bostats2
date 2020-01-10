@@ -4,6 +4,7 @@ import (
 	"bostats2/listings"
 	"bostats2/scrape"
 	"fmt"
+	h "github.com/aybabtme/uniplot/histogram"
 	"github.com/montanaflynn/stats"
 	"os"
 	"sort"
@@ -25,6 +26,7 @@ func main() {
 	sort.Slice(keys, func(i, j int) bool {
 		return keys[i].Before(keys[j])
 	})
+	fmt.Println("\nPrice/Sqm per month percentiles:")
 	fmt.Printf("|%4s|%10s|%3s|%8s|%8s|%8s|\n", "year", "month", "vol", "50th", "75th", "90th")
 	for _, d := range keys {
 		data := intToFloat64(buckets[d])
@@ -34,6 +36,11 @@ func main() {
 		fmt.Printf("|%4d|%10s|%3d|%8.1f|%8.1f|%8.1f|\n", d.Year(), d.Month(), len(data), median, p75, p90)
 		//fmt.Println(d.Year(), d.Month(), len(data), median, p75, p90)
 	}
+	fmt.Println("\nPrice/Sqm frequency histogram for the period", keys[0].Month(), keys[0].Year(), "to", keys[len(keys)-1].Month(), keys[len(keys)-1].Year())
+	hist := h.Hist(20, listings.PriceSqm(ls))
+	h.Fprintf(os.Stdout, hist, h.Linear(20), func(v float64) string {
+		return fmt.Sprintf("%.0f", v)
+	})
 }
 
 func intToFloat64(in []int) []float64 {
