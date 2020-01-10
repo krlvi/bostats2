@@ -1,18 +1,18 @@
 # Bostats2
 
-Scrapes hemnet.se to for apartment sale prices **per square meter**. Produces a table with 50th, 75th and 90th percentiles.
-Like [bostats](https://github.com/krlvi/bostats) but not in Clojure but Go, faster, and it actually works.
+Scrapes hemnet.se for apartment sale prices **per square meter**. Produces a table with 50th, 75th and 90th percentiles.
+Like [bostats](https://github.com/krlvi/bostats) but in Go instead of Clojure, faster, and it actually works.
 
 # Usage
 1) Have Go installed
 
-2) On the [hemnet page for sold properties](https://www.hemnet.se/salda/bostader) search for with parameters that interest you. 
+2) On the [hemnet page for sold properties](https://www.hemnet.se/salda/bostader) search with parameters that interest you. 
 
 3) Copy the URL.
 
 4) Do a `go run main.go '<URL>'`
 
-#Example 
+# Example 
 This url https://www.hemnet.se/salda/bostader?location_ids%5B%5D=925968&sold_age=all gives sold properties in Kungsholmen.
 
 Running `go run main.go 'https://www.hemnet.se/salda/bostader?location_ids%5B%5D=925968&sold_age=all'` will produce a result like the one below:
