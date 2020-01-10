@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github.com/PuerkitoBio/goquery"
 	"log"
+	"math"
 	"strconv"
 	"strings"
 	"time"
@@ -65,16 +66,22 @@ func parseListing(s *goquery.Selection) (listings.Entry, error) {
 }
 
 func PagesAvailable(doc *goquery.Document) (int, error) {
-	s := doc.Find(".padded-container .result-tools .pagination").First()
-	if len(s.Nodes) < 1 {
-		return 1, nil
-	}
-	raw := s.Nodes[0].FirstChild.NextSibling.NextSibling.NextSibling.NextSibling.NextSibling.NextSibling.NextSibling.NextSibling.NextSibling.FirstChild.Data
-	i, err := strconv.Atoi(strings.TrimSpace(raw))
+	s := doc.Find(".padded-container .result-tools .centered").First()
+	showing := s.Nodes[0].FirstChild.NextSibling.FirstChild.Data
+	from := s.Nodes[0].LastChild.Data
+	return totalPages(showing, from)
+}
+
+func totalPages(showing, last string) (int, error) {
+	to, err := strconv.Atoi(strings.TrimSpace(strings.Split(showing, "-")[1]))
 	if err != nil {
 		return 0, err
 	}
-	return i, nil
+	total, err := strconv.Atoi(strings.TrimSpace(strings.Split(last, "av")[1]))
+	if err != nil {
+		return 0, err
+	}
+	return int(math.Ceil(float64(total) / float64(to))), nil
 }
 
 func sqmRoom(s *goquery.Selection) (sqm, rooms float64, err error) {

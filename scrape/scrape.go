@@ -44,7 +44,7 @@ func AllPages(url string) ([]listings.Entry, error) {
 	}
 	wg.Wait()
 	close(c)
-	<- done
+	<-done
 	return out, nil
 }
 
