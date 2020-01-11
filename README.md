@@ -2,7 +2,7 @@
 
 Scrapes hemnet.se for apartment sale prices **per square meter**. Produces the following output:
 1. A table price per square meter 50th, 75th and 90th percentiles for each month.
-2. A frequency prices per square meter frequency diagram for the whole time period.
+2. A frequencies histogram of prices per square meter for the whole time period.
 
 Like [bostats](https://github.com/krlvi/bostats) but in Go instead of Clojure, faster, and it actually works.
 
