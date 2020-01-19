@@ -3,12 +3,13 @@ package parse
 import (
 	"bostats2/listings"
 	"errors"
-	"github.com/PuerkitoBio/goquery"
 	"log"
 	"math"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/PuerkitoBio/goquery"
 )
 
 func FindListings(doc *goquery.Document) ([]listings.Entry, error) {
@@ -73,11 +74,19 @@ func PagesAvailable(doc *goquery.Document) (int, error) {
 }
 
 func totalPages(showing, last string) (int, error) {
-	to, err := strconv.Atoi(strings.TrimSpace(strings.Split(showing, "-")[1]))
+	showingTokens := strings.Split(showing, "-")
+	if len(showingTokens) < 2 {
+		return 0, errors.New("cannot parse total pages")
+	}
+	to, err := strconv.Atoi(strings.TrimSpace(showingTokens[1]))
 	if err != nil {
 		return 0, err
 	}
-	total, err := strconv.Atoi(strings.TrimSpace(strings.Split(last, "av")[1]))
+	lastTokens := strings.Split(last, "av")
+	if len(lastTokens) < 2 {
+		return 0, errors.New("cannot parse total pages")
+	}
+	total, err := strconv.Atoi(strings.TrimSpace(lastTokens[1]))
 	if err != nil {
 		return 0, err
 	}
