@@ -67,7 +67,7 @@ func parseListing(s *goquery.Selection) (listings.Entry, error) {
 }
 
 func PagesAvailable(doc *goquery.Document) (int, error) {
-	s := doc.Find(".padded-container .result-tools .centered").First()
+	s := doc.Find(".search-results-magic-container .result-tools .centered").First()
 	showing := s.Nodes[0].FirstChild.NextSibling.FirstChild.Data
 	from := s.Nodes[0].LastChild.Data
 	return totalPages(showing, from)
