@@ -18,7 +18,7 @@ func main() {
 		return map[time.Time]int{listing.Date: listing.PriceSqm}
 	})
 	buckets := monthBuckets(overTime)
-
+	fmt.Println("Hello")
 	keys := make([]time.Time, 0, len(buckets))
 	for k := range buckets {
 		keys = append(keys, k)
