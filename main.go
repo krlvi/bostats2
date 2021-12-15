@@ -13,6 +13,7 @@ import (
 
 func main() {
 	hemnetUrl := os.Args[1]
+	
 	ls, _ := scrape.AllPages(hemnetUrl)
 	overTime := listings.Map(ls, func(listing listings.Entry) map[time.Time]int {
 		return map[time.Time]int{listing.Date: listing.PriceSqm}
