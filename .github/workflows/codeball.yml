@@ -8,3 +8,8 @@ jobs:
     steps:
       - name: Codeball
         uses: sturdy-dev/codeball-action@beta
+        with:
+          approvePullRequests: "true"
+          labelPullRequestsWhenApproved: "true"
+          labelPullRequestsWhenReviewNeeded: "true"
+          failJobsWhenReviewNeeded: "false"
