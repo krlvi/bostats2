@@ -8,5 +8,3 @@ jobs:
     steps:
       - name: Codeball
         uses: sturdy-dev/codeball-action@beta
-
-
