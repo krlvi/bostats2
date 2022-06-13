@@ -1,4 +1,5 @@
 # Bostats2
+test 1
 
 Scrapes hemnet.se for apartment sale prices **per square meter**. Produces the following output:
 1. A table price per square meter 50th, 75th and 90th percentiles for each month.
